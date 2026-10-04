@@ -1,0 +1,41 @@
+name: Generate Feed
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # كل ساعة
+  workflow_dispatch:       # يسمح لك تشغله يدوي
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Generate feed
+        run: |
+          mkdir -p public
+          python generate_feed.py
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/deploy-pages@v4
