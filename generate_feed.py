@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # ===== غيّر هذي القيم حسب موقعك =====
-SITE_URL = "https://example.com/blog"   # رابط الصفحة اللي تسحب منها
+   SITE_URL = "https://example.com/blog"# رابط الصفحة اللي تسحب منها
 ITEM_SELECTOR = "article"               # العنصر اللي يمثل كل مقال/منتج
 TITLE_SELECTOR = "h2"                   # العنوان داخل العنصر
 LINK_SELECTOR = "a"                     # الرابط داخل العنصر
